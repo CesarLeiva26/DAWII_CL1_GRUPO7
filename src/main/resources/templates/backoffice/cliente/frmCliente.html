@@ -8,7 +8,7 @@
 
 
 <div class="table-responsive vertscrol">
-    <table class="table  table-hover table-bordered" id="tableclientes" tabindex="-1">
+    <table class="table table-hover table-bordered" id="tableclientes" tabindex="-1">
         <thead>
         <tr>
             <th scope="col">Id</th>
@@ -16,52 +16,58 @@
             <th scope="col">Direccion</th>
             <th scope="col">Numero Telefono</th>
             <th scope="col">Correo</th>
-
-
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="cliente :${listadocliente}">
-            <td th:text="${cliente.idcliente}"></td>
-            <td th:text="${cliente.nombre}"></td>
-            <td th:text="${cliente.direccion}"></td>
-            <td th:text="${cliente.numerotelefono}"></td>
-            <td th:text="${cliente.correoelectronico}"></td>
-        </tr>
-
-
-        </tbody>
-    </table>
-
-    <table class="table  table-hover table-bordered" id="tableclientes2" tabindex="-1">
-        <thead>
-
-        <tr>
-
             <th scope="col">Fecha de pago</th>
             <th scope="col">Monto Pagado</th>
             <th scope="col">Metodo de pago</th>
             <th scope="col">Estado de pago</th>
             <th scope="col">IdCliente</th>
-
+            <th scope="col">Opciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="historial :${listadohistorialpago}">
-            <td th:text="${historial.fechapago}"></td>
-            <td th:text="${historial.montopagado}"></td>
-            <td th:text="${historial.metodopago}"></td>
-            <td th:text="${historial.estadopago}"></td>
-            <td th:text="${historial.cliente.idcliente}"></td>
+        <tr th:each="cliente, clienteIndex : ${listadocliente}">
+            <td th:text="${cliente.idcliente}"></td>
+            <td th:text="${cliente.nombre}"></td>
+            <td th:text="${cliente.direccion}"></td>
+            <td th:text="${cliente.numerotelefono}"></td>
+            <td th:text="${cliente.correoelectronico}"></td>
+            <!-- Acceder al historial correspondiente utilizando el índice -->
+            <td th:text="${listadohistorialpago[clienteIndex.index].fechapago}"></td>
+            <td th:text="${listadohistorialpago[clienteIndex.index].montopagado}"></td>
+            <td th:text="${listadohistorialpago[clienteIndex.index].metodopago}"></td>
+            <td th:text="${listadohistorialpago[clienteIndex.index].estadopago}"></td>
+            <td th:text="${listadohistorialpago[clienteIndex.index].cliente.idcliente}"></td>
+
+
+            <td>
+                <button type="button" class="btn btn-light btnactualizarCliente"
+                        th:data-idcliente="${cliente.idcliente}"
+                        th:data-nombre="${cliente.nombre}"
+                        th:data-direccion="${cliente.direccion}"
+                        th:data-numerotelefono="${cliente.numerotelefono}"
+                        th:data-correoelectronico="${cliente.correoelectronico}"
+                        th:data-idpago="${listadohistorialpago[clienteIndex.index].idpago}"
+                        th:data-fechapago="${listadohistorialpago[clienteIndex.index].fechapago}"
+                        th:data-montopagado="${listadohistorialpago[clienteIndex.index].montopagado}"
+                        th:data-metodopago="${listadohistorialpago[clienteIndex.index].metodopago}"
+                        th:data-estadopago="${listadohistorialpago[clienteIndex.index].estadopago}"
+
+                >
+
+                    <i class="fas fa-edit"></i>
+                </button>
+            </td>
+            </td>
+
         </tr>
         </tbody>
     </table>
+
 </div>
 
 
 <button class="btn btn-primary"
-        id="btnagregar" type="button"><i class="fas fa-plus"></i> Agregar
+        id="btnagregarcliente" type="button"><i class="fas fa-plus"></i> Agregar
 </button>
 
 
@@ -81,6 +87,11 @@
                 <div class="mb-3">
                     <label class="form-label" for="txtdireccion">Direccion</label>
                     <input class="form-control" id="txtdireccion" maxlength="30" type="text">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="txtnumerotelefono">Telefono</label>
+                    <input class="form-control" id="txtnumerotelefono" maxlength="30" type="text">
                 </div>
 
 
@@ -111,12 +122,19 @@
                     <label class="form-label" for="txtestadopago">Estado pago</label>
                     <input class="form-control" id="txtestadopago" maxlength="30" type="text">
                 </div>
+
+
+
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal" type="button"><i class="fas fa-times"></i>
                     Cancelar
                 </button>
-                <button class="btn btn-primary" id="btnguardar" type="button"><i class="fas fa-save"></i> Guardar
+
+                <input type="hidden" id="hddidcliente">
+                <input type="hidden" id="hddidpago">
+
+                <button class="btn btn-primary" id="btnguardarcliente" type="button"><i class="fas fa-save"></i> Guardar
                 </button>
             </div>
         </div>
