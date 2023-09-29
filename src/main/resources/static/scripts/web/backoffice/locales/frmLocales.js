@@ -1,0 +1,88 @@
+$(document).on("click", "#btnagregar", function(){
+    $("#txtnombre").val("");
+    $("#cbolocales").empty();
+                listarCboLocales(0);
+    $("#txtnumerotelefono").val("");
+    $("#txtcorreoelectronico").val("");
+    $("#hddcodempleado").val("0");
+    $("#modalNuevo").modal("show");
+
+});
+
+$(document).on("click", ".btnactualizar", function(){
+    $("#txtnombre").val($(this).attr("data-empleadonombre"));
+    $("#txtnumerotelefono").val($(this).attr("data-empleadotelefono"));
+    $("#txtcorreoelectronico").val($(this).attr("data-empleadocorreo"));
+    $("#hddcodempleado").val($(this).attr("data-empleadoid"));
+     $("#cbotipoempleado").empty();
+        listarCboTipoEmpleados($(this).attr("data-empleadotipo"));
+    $("#modalNuevo").modal("show");
+});
+
+$(document).on("click", "#btnguardar", function(){
+    $.ajax({
+        type: "POST",
+        url: "/local/guardar",
+        contentType: "application/json",
+        data: JSON.stringify({
+            idempleado: $("#hddcodlocal").val(),
+            nombre: $("#txtnombre").val(),
+            numerotelefono: $("#txtnumerotelefono").val(),
+            correoelectronico: $("#txtcorreoelectronico").val(),
+            idtipoempleado: $("#cbotipoempleado").val()
+        }),
+        success: function(resultado){
+            if(resultado.respuesta){
+                listarLocales();
+            }
+            alert(resultado.mensaje);
+        }
+    });
+    $("#modalNuevo").modal("hide");
+});
+
+function listarCboLocales(hddcodlocal){
+    $.ajax({
+        type: "GET",
+        url: "/locales/listar",
+        dataType: "json",
+        success: function(resultado){
+            $.each(resultado, function(index, value){
+                $("#cbotipoempleado").append(
+                    `<option value="${value.idtipoempleado}">${value.nombretipoempleado}</option>`
+                );
+            });
+            if(idtipoempleado > 0){
+                $("#cbotipoempleado").val(idtipoempleado);
+            }
+        }
+    });
+}
+
+function listarEmpleados(){
+    $.ajax({
+        type: "GET",
+        url: "/empleado/listar",
+        dataType: "json",
+        success: function(resultado){
+            $("#tblempleado > tbody").html("");
+            $.each(resultado, function(index, value){
+                $("#tblempleado > tbody").append("<tr>"+
+                    "<td>"+value.idempleado+"</td>"+
+                    "<td>"+value.nombre+"</td>"+
+                    "<td>"+value.tiposempleados.nombretipoempleado+"</td>"+
+                    "<td>"+value.numerotelefono+"</td>"+
+                    "<td>"+value.correoelectronico+"</td>"+
+                    "<td>"+
+                        "<button type='button' class='btn btn-info btnactualizar'"+
+                        "data-empleadoid='"+value.idempleado+"'"+
+                        "data-empleadonombre='"+value.nombre+"'"+
+                        "data-empleadotipo='"+value.tiposempleados.idtipoempleado+"'"+
+                        "data-empleadotelefono='"+value.numerotelefono+"'"+
+                        "data-empleadocorreo='"+value.correoelectronico+"'"+
+                        "><i class='fas fa-edit'></i></button>"+
+                    "</td></tr>");
+            });
+        }
+    });
+}

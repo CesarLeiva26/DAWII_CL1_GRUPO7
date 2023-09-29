@@ -25,7 +25,7 @@ public class Locales {
     @Column(name = "telefonolocal")
     private String telefonolocal;
     @ManyToOne
-    @JoinColumn(name = "idtipoempleado")
-    private Integer idempleado;
+    @JoinColumn(name = "idempleado")
+    private Empleado empleado;
 
 }
