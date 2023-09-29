@@ -6,11 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "empleados")
 @Entity
-
 public class Empleado {
 
     @Id
@@ -22,7 +20,7 @@ public class Empleado {
     private String  numerotelefono;
     @Column(name = "correoelectronico")
     private String correoelectronico;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idtipoempleado")
-    private TipoEmpleado idtipoempleado;
+    private TipoEmpleado tiposempleados;
 }
