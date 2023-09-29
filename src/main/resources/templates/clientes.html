@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout::head}">
+
+</head>
+<body>
+<nav th:replace="~{layout::menu}"></nav>
+
+
+<div class="table-responsive vertscrol">
+    <table class="table  table-hover table-bordered" id="tableclientes" tabindex="-1">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Numero Telefono</th>
+            <th scope="col">Correo</th>
+
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="cliente :${listadocliente}">
+            <td th:text="${cliente.idcliente}"></td>
+            <td th:text="${cliente.nombre}"></td>
+            <td th:text="${cliente.direccion}"></td>
+            <td th:text="${cliente.numerotelefono}"></td>
+            <td th:text="${cliente.correoelectronico}"></td>
+        </tr>
+
+
+        </tbody>
+    </table>
+
+    <table class="table  table-hover table-bordered" id="tableclientes2" tabindex="-1">
+        <thead>
+
+        <tr>
+
+            <th scope="col">Fecha de pago</th>
+            <th scope="col">Monto Pagado</th>
+            <th scope="col">Metodo de pago</th>
+            <th scope="col">Estado de pago</th>
+            <th scope="col">IdCliente</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="historial :${listadohistorialpago}">
+            <td th:text="${historial.fechapago}"></td>
+            <td th:text="${historial.montopagado}"></td>
+            <td th:text="${historial.metodopago}"></td>
+            <td th:text="${historial.estadopago}"></td>
+            <td th:text="${historial.cliente.idcliente}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<button class="btn btn-primary"
+        id="btnagregar" type="button"><i class="fas fa-plus"></i> Agregar
+</button>
+
+
+<!-- Modal Registrar-->
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="modalNuevo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Cliente</h1>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label" for="txtnombre">Nombre</label>
+                    <input class="form-control" id="txtnombre" maxlength="15" type="text">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="txtdireccion">Direccion</label>
+                    <input class="form-control" id="txtdireccion" maxlength="30" type="text">
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label" for="txtcorreoelectronico">Correo</label>
+                    <input class="form-control" id="txtcorreoelectronico" maxlength="30" type="text">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="txtfecha">Fecha</label>
+                    <input class="form-control" id="txtfecha" maxlength="30" type="text">
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label" for="txtmontopagado">Monto Pagado</label>
+                    <input class="form-control" id="txtmontopagado"  type="text">
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label" for="txtmetodopago">Metodo de pago</label>
+                    <input class="form-control" id="txtmetodopago" maxlength="30" type="text">
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label" for="txtestadopago">Estado pago</label>
+                    <input class="form-control" id="txtestadopago" maxlength="30" type="text">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button"><i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-primary" id="btnguardar" type="button"><i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

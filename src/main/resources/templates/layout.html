@@ -11,6 +11,8 @@
             type="text/javascript"></script>
     <script th:src="@{/scripts/jquery/jquery.js}"
             type="text/javascript"></script>
+    <script th:src="@{/scripts/jsweb/cliente/frmcliente.js}"
+            type="text/javascript"></script>
 </head>
 
 <body>
@@ -30,7 +32,12 @@
                         Mantenimientos
                     </a>
                     <ul class="dropdown-menu">
+
+                        <li><a class="dropdown-item" th:href="@{/cliente/listarclientes}">
+                            Cliente</a></li>
+
                         <li><a class="dropdown-item" th:href="@{/empleado}">Empleado</a></li>
+
                         <li><hr class="dropdown-divider"></li>
                     </ul>
                 </li>
