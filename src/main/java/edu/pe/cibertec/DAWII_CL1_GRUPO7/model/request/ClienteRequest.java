@@ -12,6 +12,7 @@ public class ClienteRequest {
 
 
     private Integer idcliente;
+    private Integer idpago;
     private String nombre;
     private String direccion;
     private String numerotelefono;
@@ -20,6 +21,8 @@ public class ClienteRequest {
     private Double montopagado;
     private String metodopago;
     private String estadopago;
+
+
 
 
 }

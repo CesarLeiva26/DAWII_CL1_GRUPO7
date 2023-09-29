@@ -1,4 +1,4 @@
-package edu.pe.cibertec.DAWII_CL1_GRUPO7.controller;
+package edu.pe.cibertec.DAWII_CL1_GRUPO7.controller.backoffice;
 
 import edu.pe.cibertec.DAWII_CL1_GRUPO7.model.bd.Cliente;
 import edu.pe.cibertec.DAWII_CL1_GRUPO7.model.request.ClienteRequest;
@@ -27,14 +27,14 @@ public class ClienteController {
     public String listadototal(Model model){
         model.addAttribute("listadocliente", clienteService.listarClientes());
         model.addAttribute("listadohistorialpago", historialPagoService.listar());
-        return "clientes";
+        return "backoffice/cliente/frmCliente";
     }
 
 
     @GetMapping("/frmcliente")
     @ResponseBody
     public String frmcliente(){
-        return "cliente/frmcliente";
+        return "backoffice/cliente/frmCliente";
     }
 
     @GetMapping("/listarcliente")
@@ -52,4 +52,30 @@ public class ClienteController {
         mensaje = respuesta ? "Se guardo correctamente" : "No se guardo correctamente";
         return ResultadoResponse.builder().mensaje(mensaje).respuesta(respuesta).build();
     }
+/*
+    @PostMapping("/actualizarcliente")
+    @ResponseBody
+    public ResultadoResponse actualizarcliente(@RequestBody ClienteRequest  clienteRequest) {
+
+        String mensaje ="Envio Exitoso";
+        Boolean respuesta = true;
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setIdcliente(clienteRequest.getIdcliente());
+            cliente.setNombre(clienteRequest.getNombre());
+            cliente.setDireccion(clienteRequest.getDireccion());
+            cliente.setNumerotelefono(clienteRequest.getNumerotelefono());
+            cliente.setCorreoelectronico(clienteRequest.getCorreoelectronico());
+            clienteService.actualizar(cliente);
+        } catch (Exception e) {
+            mensaje = "Error al actualizar";
+            respuesta = false;
+        }
+        return ResultadoResponse.builder()
+                .mensaje(mensaje)
+                .respuesta(respuesta)
+                .build();
+    }
+*/
+
 }
