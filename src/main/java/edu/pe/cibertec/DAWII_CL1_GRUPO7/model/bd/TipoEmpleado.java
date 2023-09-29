@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "tiposempleados")
 @Entity
-
+@NoArgsConstructor
 public class TipoEmpleado {
 
     @Id
