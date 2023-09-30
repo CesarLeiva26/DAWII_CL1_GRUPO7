@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS locales (
 CREATE TABLE IF NOT EXISTS usuarios (
     idusuario INT AUTO_INCREMENT PRIMARY KEY,
     nombreusuario VARCHAR(50),
-    contraseña VARCHAR(255),
+    contra VARCHAR(255),
     idempleado INT,
     FOREIGN KEY (idempleado) REFERENCES empleados(idempleado)
 );
@@ -226,7 +226,7 @@ VALUES
     ('Local 3', 'Dirección Local 3', 'Ciudad 3', 'CP67890', '555-333-3333', 3);
 
 -- Insertar datos en la tabla usuarios
-INSERT INTO usuarios (nombreusuario, contraseña, idempleado)
+INSERT INTO usuarios (nombreusuario, contra, idempleado)
 VALUES
     ('Usuario1', 'Contraseña1', 1),
     ('Usuario2', 'Contraseña2', 2),
